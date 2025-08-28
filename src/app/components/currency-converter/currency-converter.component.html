@@ -1,0 +1,42 @@
+<div class="app">
+  <h1>Currency Converter</h1>
+
+  <form [formGroup]="form" class="form">
+    <div class="row">
+      <label>
+        From
+        <select formControlName="from">
+          <option *ngFor="let c of currencies(); trackBy: trackByCode" [value]="c.short_code">
+            {{ c.short_code }} - {{ c.name }}
+          </option>
+        </select>
+      </label>
+
+      <button type="button" class="swap" (click)="swap()" aria-label="Swap">⇄</button>
+
+      <label>
+        To
+        <select formControlName="to">
+          <option *ngFor="let c of currencies(); trackBy: trackByCode" [value]="c.short_code">
+            {{ c.short_code }} - {{ c.name }}
+          </option>
+        </select>
+      </label>
+    </div>
+
+    <div class="row">
+      <label class="amount">
+        Amount
+        <input type="number" formControlName="amount" min="0" step="any" />
+      </label>
+    </div>
+  </form>
+
+  <div class="panel">
+    <div class="value" >
+      {{ form.value.amount | number:'1.2-6' }} {{ form.value.from }}
+      =
+      <strong>{{ converted() | number:'1.2-6' }}</strong> {{ form.value.to }}
+    </div>
+  </div>
+</div>
